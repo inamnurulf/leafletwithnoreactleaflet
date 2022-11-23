@@ -1,41 +1,51 @@
+//import from modules
 import React from 'react'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet/dist/leaflet';
 import 'leaflet-draw/dist/leaflet.draw.css'
 import 'leaflet-draw/dist/leaflet.draw'
 
+//import component
+import Listmission from '../component/listmission';
+//import method 
 import { useEffect, useState } from 'react';
 
 
 
+
 function Map() {
-  const [data, setData]= useState('')
-  const [title,setTitle]=useState('')
-  const [description,setDescription]=useState('')
+  //deklarasi state
+  const [data, setData] = useState('')
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
 
-  const handleSubmit= async (e)=>{
-    const mission = {title,data,description}
+  //handlesubmit function
+  const handleSubmit = async (e) => {
+    const mission = { title, data, description }
 
-    const response =await fetch('http://localhost:4000/mission',{
+    const response = await fetch('http://localhost:4000/mission', {
       method: 'POST',
       body: JSON.stringify(mission),
-      headers:{
+      headers: {
         'Content-Type': 'application/json'
       }
     })
-    const json= await response.json()
+    const json = await response.json()
 
-    if (!response.ok){
+    if (!response.ok) {
       console.log(json.error)
     }
-    if(response.ok){
-      console.log("u made a mission :",json)
+    if (response.ok) {
+      console.log("u made a mission :", json)
     }
-
+    window.location.reload();
   }
-  var dataa=""
-  useEffect(() => {
+
+  //variabel tambahan
+  var dataa = ""
   
+  useEffect(() => {
+
     const map = L.map('mapid', {
       center: [-7.770905, 110.377637],
       zoom: 18
@@ -56,10 +66,16 @@ function Map() {
       },
       edit: {
         featureGroup: drawnItems
+      },
+      draw: {
+        circle: false,
+        circlemarker: false
       }
     });
     map.addControl(drawControl);
+    
 
+    //drawnitems controll
     map.on(L.Draw.Event.CREATED, function (event) {
       drawnItems.addLayer(event.layer);
       dataa = JSON.stringify(drawnItems.toGeoJSON());
@@ -81,17 +97,25 @@ function Map() {
       map.off()
       map.remove()
     }
-  },[])
+  }, [])
 
   return (
     <>
       <div className='map-container' >
-        <div id='mapid' style={{ height: '100vh' }}></div>
+        <div id='mapid' style={{ height: '80vh' }}></div>
       </div>
-      <input type={'text'} onChange={(e)=>{setTitle(e.target.value)}}>
+      <span>Masukkan Title Mission:</span>
+      <br />
+      <input type={'text'} onChange={(e) => { setTitle(e.target.value) }}>
       </input>
+      <br />
+      <span>Masukkan Deskripsi Mission :</span>
+      <br />
+      <input type={'text'} onChange={(e) => { setDescription(e.target.value) }}>
+      </input>
+      <br />
       <button onClick={handleSubmit}> SAVE </button>
-
+      <Listmission />
     </>
   )
 }
