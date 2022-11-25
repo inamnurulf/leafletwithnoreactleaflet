@@ -1,8 +1,12 @@
-import Axios from 'axios'
 import React from 'react'
+import { NavLink } from "react-router-dom";
+
 
 const Listdata = ({ dataList }) => {
+
   console.log(dataList)
+  console.log()
+
 
   const { title, _id, description, createdAt, updatedAt, data } = dataList;
 
@@ -28,6 +32,9 @@ const Listdata = ({ dataList }) => {
       </li>
       <div>{description}</div>
       <span onClick={handleDelete} style={{textDecoration:'underline', color:'blue'}}>delete</span>
+      <NavLink
+      to={`/details/${_id}`}
+      >view details</NavLink>
       <br />
     </div>
   )

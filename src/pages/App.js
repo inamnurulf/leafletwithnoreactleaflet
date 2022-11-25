@@ -7,6 +7,7 @@ import 'leaflet-draw/dist/leaflet.draw'
 
 //import component
 import Listmission from '../component/listmission';
+import logo from '../assets/Khageswara-1.png'
 //import method 
 import { useEffect, useState } from 'react';
 
@@ -43,7 +44,7 @@ function Map() {
 
   //variabel tambahan
   var dataa = ""
-  
+
   useEffect(() => {
 
     const map = L.map('mapid', {
@@ -73,7 +74,7 @@ function Map() {
       }
     });
     map.addControl(drawControl);
-    
+
 
     //drawnitems controll
     map.on(L.Draw.Event.CREATED, function (event) {
@@ -101,20 +102,32 @@ function Map() {
 
   return (
     <>
+      <div className='GCS__Navbar'>
+        <div className='GCS__Navbar-links_logo'>
+          <img src={logo} alt="logo" />
+        </div>
+        <div>
+          <h1 className='author'>Created by Inam and Jethro</h1>
+        </div>
+      </div>
+
       <div className='map-container' >
         <div id='mapid' style={{ height: '80vh' }}></div>
       </div>
-      <span>Masukkan Title Mission:</span>
-      <br />
-      <input type={'text'} onChange={(e) => { setTitle(e.target.value) }}>
-      </input>
-      <br />
-      <span>Masukkan Deskripsi Mission :</span>
-      <br />
-      <input type={'text'} onChange={(e) => { setDescription(e.target.value) }}>
-      </input>
-      <br />
-      <button onClick={handleSubmit}> SAVE </button>
+      <div className='wrapping'>
+        <div className='missionbar'>
+          <h3>Build your mission</h3>
+          <span>Masukkan Title Mission:</span>
+          <div className='buttons'>
+            <input type={'text'} onChange={(e) => { setTitle(e.target.value) }}>
+            </input>
+            <span>Masukkan Deskripsi Mission :</span>
+            <input type={'text'} onChange={(e) => { setDescription(e.target.value) }}>
+            </input>
+            <button onClick={handleSubmit}> SAVE </button>
+          </div>
+        </div>
+      </div>
       <Listmission />
     </>
   )
