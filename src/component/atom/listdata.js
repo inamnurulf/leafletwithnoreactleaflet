@@ -1,11 +1,9 @@
 import React from 'react'
 import { NavLink } from "react-router-dom";
+import './listdata.css'
 
 
 const Listdata = ({ dataList }) => {
-
-  console.log(dataList)
-  console.log()
 
 
   const { title, _id, description, createdAt, updatedAt, data } = dataList;
@@ -27,15 +25,24 @@ const Listdata = ({ dataList }) => {
 
   return (
     <div className='text-white' >
-      <li>
-        {title}
-      </li>
-      <div>{description}</div>
-      <span onClick={handleDelete} style={{textDecoration:'underline', color:'blue'}}>delete</span>
-      <NavLink
-      to={`/details/${_id}`}
-      >view details</NavLink>
-      <br />
+      <div class="main-container">
+        <div class="heading">
+          <h1 class="heading__title">{title}</h1>
+          <p class="heading__credits"><a class="heading__link" target="_blank" >{createdAt}</a></p>
+        </div>
+        <div class="cards">
+          <div class="card card-1">
+            <p class="heading__credits">Description :</p>
+            <h2 class="card__title">{description}</h2>
+            <p class="card__apply">
+              <button className='button-64' role='button'><NavLink to={`/details/${_id}`} id="Navlink" class='Navlink' style={{color:'#ffffff',textDecoration:'none'}}>view details </NavLink></button>
+              <i class="fas fa-arrow-right"></i>
+              <button className='button-64' role='button' onClick={handleDelete}><span class="text">Delete</span></button>
+            </p>
+          </div>
+        </div>
+      </div>
+      <hr/>
     </div>
   )
 }

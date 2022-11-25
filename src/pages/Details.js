@@ -13,7 +13,7 @@ const Details = () => {
     const getData = async () => {
         try {
             let res = await Axios.get(`http://localhost:4000/mission/${id}`);
-            await setgeojsonFeature(res.data.data);
+            await setgeojsonFeature(res.data);
 
         } catch (e) {
             console.log(e);
