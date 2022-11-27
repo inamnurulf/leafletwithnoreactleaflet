@@ -114,31 +114,35 @@ const Detailsmap = ({ geoJson }) => {
 
     return (
         <div style={{ backgroundColor: '#ebc24a' }}>
-            <div className='map-container' >
-                <div id='mapid' style={{ height: '80vh' }}></div>
-                <button onClick={handleshow}>show mission</button>
-                <div style={{ margin: '10px' }}>Title :{geoJson.title}</div>
-                <div>
-                    Data geoJSOn :{geoJson.data}
-                </div>
-                <div>Description :{geoJson.description}</div>
+            <div id='mapid' style={{ height: '80vh' }}></div>
+            <div className='map-container' style={{ height: '300px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <button onClick={handleshow}> click untuk menampilkan misi </button>
+                <div>Title :</div>
+                <div style={{ backgroundColor: 'white', width: '50 px' }}>{geoJson.title}</div>
+                <div>Data GeoJSON :</div>
+                <div style={{ backgroundColor: 'white', width: '50 px' }}>{geoJson.data}</div>
+                <div>Description :</div>
+                <div style={{ backgroundColor: 'white', width: '50 px' }}>{geoJson.description}</div>
+                <div style={{ color: 'gray', textAlign: 'center' }}>Dibuat:{geoJson.createdAt}  | Terakhir diubah:{geoJson.updatedAt}</div>
+                <button onClick={handlebutton}>Edit</button>
             </div>
 
-            <button onClick={handlebutton}>Edit</button>
             <br />
             <br />
-            <div style={{display: buttonEdit ? 'block' : 'none' }}>
-                <span>Mau ngedit bang?:</span>
-                <div className='buttons'>
-                    <input type={'text'} onChange={(e) => { setTitle(e.target.value) }}>
+            <div style={{ display: buttonEdit ? 'block' : 'none' }}>
+                <div >
+                    <span>Masukkan title baru:</span>
+                    <input type={'text'}  onChange={(e) => { setTitle(e.target.value) }}>
                     </input>
                     <span>Masukkan Deskripsi Mission :</span>
-                    <input type={'text'} onChange={(e) => { setDescription(e.target.value) }}>
+                    <input type={'text'}  onChange={(e) => { setDescription(e.target.value) }}>
                     </input>
                     <button onClick={handlePatch}> SAVE </button>
                 </div>
             </div>
-            <NavLink to={`/`} id="Navlink" style={{ color: '#0D0A33' }}>back</NavLink>
+            <div style={{ color: '#ffffff', textDecoration: 'none', backgroundColor: '#0D0A33', padding: '3px', borderRadius: '5px', margin: '5px', textAlign:'center' }}>
+            <NavLink to={`/`} id="Navlink" style={{ color: '#ffffff', textDecoration: 'none'  }}>back</NavLink>
+            </div>
         </div>
     )
 }
